@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: Alfred-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - alfred-network
+  
+  mongo:
+    image: mongo:latest
+    container_name: Alfred-mongo
+    ports:
+      - "${DB_PORT}:27017"
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - alfred-network
+  mailcatcher:
+    image: sj26/mailcatcher:latest
+    platform: linux/arm64
+    container_name: Alfred-mailcatcher
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP port
+      - "1080:1080"  # Web UI port
+    networks:
+      - alfred-network
+volumes:
+  redis-data:
+  mongo-data:
+
+networks:
+  alfred-network:
+    driver: bridge
