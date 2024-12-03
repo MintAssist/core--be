@@ -202,18 +202,16 @@ module.exports = {
 					.replaceAll(promptConfig.params.language, language)
 					.replaceAll(promptConfig.params.max, max)
 			)
-			console.log(contentPrompt)
 			const r = await model.generateContent(contentPrompt);
 			const result = r.response.text();
-			console.log(result)
 			const articleArr = result.split(promptConfig.separateStringArr).map(article => {
 				const [title, description, language, hardLevel] = article.split(promptConfig.separateString)
 
 				return {
-					title: title.replace(/\n/g, ' ').trim(),
-					description: description.replace(/\n/g, ' ').trim(),
-					language: language.replace(/\n/g, ' ').trim(),
-					hardLevel: hardLevel.replace(/\n/g, ' ').trim()
+					title: title.replace(/^[\n`\s]+|[\n`\s]+$/g, '').trim(),
+					description: description.replace(/^[\n`\s]+|[\n`\s]+$/g, '').trim(),
+					language: language.replace(/^[\n`\s]+|[\n`\s]+$/g, '').trim(),
+					hardLevel: hardLevel.replace(/^[\n`\s]+|[\n`\s]+$/g, '').trim()
 				}
 			})
 
