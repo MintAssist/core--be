@@ -44,7 +44,8 @@ module.exports = {
 				const tokens = await this._attempt({
 					_id: currentUser._id,
 					state: currentUser.state,
-					email: currentUser.email
+					email: currentUser.email,
+					role: currentUser.role,
 				})
 
 				await auth.deleteOTP(userId)
