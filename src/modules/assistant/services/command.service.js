@@ -20,7 +20,6 @@ const { QueueManager } = require("@knfs-tech/bamimi-schedule")
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Types;
 
-const PROMPT_CACHE_KEY = "PROMPT_RESULTS"
 const TMP_CONTENT_CACHE_KEY = "TMP_CONTENT"
 const TMP_CONTENT_CACHE_TIME = 900
 
@@ -117,13 +116,13 @@ module.exports = {
 		const promptConfig = specificContext.analyze;
 		const contentPrompt = await this._addCommonContext(
 			currentUser,
-			promptConfig.prompt.replaceAll(promptConfig.params.content, originalText),
-			promptConfig.prompt.replaceAll(promptConfig.params.language, oLanguage)
+			promptConfig.prompt.replaceAll(promptConfig.params.content, originalText)
+				.replaceAll(promptConfig.params.language, oLanguage)
 		)
 
+		console.log({ action:"analyzeContent", contentPrompt })
 		const r = await model.generateContent(contentPrompt);
 		const result = r.response.text()
-		console.log(result)
 		const [language, title, topic] = result.split(promptConfig.separateString)
 		return {
 			language,
@@ -146,7 +145,7 @@ module.exports = {
 				.replaceAll(promptConfig.params.content, originalText)
 				.replaceAll(promptConfig.params.language, language)
 		);
-
+		console.log({ action: "translateContent", contentPrompt })
 		const r = await model.generateContent(contentPrompt);
 		const result = r.response.text();
 
@@ -170,6 +169,7 @@ module.exports = {
 				.replaceAll(promptConfig.params.content, originalText)
 				.replaceAll(promptConfig.params.language, language)
 		);
+		console.log({ action: "summaryContent", contentPrompt })
 
 		const r = await model.generateContent(contentPrompt);
 		const result = r.response.text();
@@ -202,6 +202,7 @@ module.exports = {
 					.replaceAll(promptConfig.params.language, language)
 					.replaceAll(promptConfig.params.max, max)
 			)
+			console.log({ action: "relationContent", contentPrompt })
 			const r = await model.generateContent(contentPrompt);
 			const result = r.response.text();
 			const articleArr = result.split(promptConfig.separateStringArr).map(article => {
@@ -214,7 +215,6 @@ module.exports = {
 					hardLevel: hardLevel.replace(/^[\n`\s]+|[\n`\s]+$/g, '').trim()
 				}
 			})
-
 
 			return {
 				language,

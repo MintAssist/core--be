@@ -7,11 +7,11 @@ module.exports = {
         const userId = job.data.dataKey.userId;
         const originalText = job.data.dataKey.originalText;
         const url = job.data.dataKey.originalUrl
-        const language = job.data.dataKey.language;
+        const oLanguage = job.data.dataKey.language;
 
 
         try {
-            const analyzedContent = await CommandService.analyzeContent(userId, { originalText, language })
+            const analyzedContent = await CommandService.analyzeContent(userId, { originalText, oLanguage })
 
             await CommandService.saveTmpFeaturesCache(job.data.dataKey, {
                 result: analyzedContent,

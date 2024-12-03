@@ -58,8 +58,8 @@ module.exports = {
             const notes = await Note.aggregate([
                 {
                     $match: { $and: cond }
-                }
-                ,
+                },
+                { $sort: sort },
                 { $skip: offset },
                 { $limit: limit },
                 {
@@ -77,7 +77,6 @@ module.exports = {
                         relatesCount: { $size: "$relates" },
                     }
                 },
-                { $sort: sort }
             ]).exec();
 
             const total = await Note.countDocuments(cond);
