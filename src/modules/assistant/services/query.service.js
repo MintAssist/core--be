@@ -79,7 +79,7 @@ module.exports = {
                 },
             ]).exec();
 
-            const total = await Note.countDocuments(cond);
+            const total = await Note.countDocuments({ $and: cond });
 
             return {
                 data: notes,

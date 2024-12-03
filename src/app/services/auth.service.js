@@ -54,7 +54,7 @@ module.exports = {
 						_id: userId,
 						email: currentUser.email,
 						role: currentUser.role,
-						state: newUser.state,
+						state: currentUser.state,
 					},
 					accessToken: tokens.accessToken,
 					refreshToken: tokens.refreshToken
