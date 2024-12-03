@@ -19,6 +19,20 @@ docker compose up -d
 
 ```
 
+- Setup Cli
+
+```bash
+npm link -f
+
+```
+
+- Create SuperAdmin
+
+```bash
+bamimi-schedule-cli admin createSuperAdmin "superAdmin@demo.com" "Abcd1234@"
+
+```
+
 - Start app on local
 ```bash
 yarn dev
