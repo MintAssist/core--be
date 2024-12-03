@@ -391,15 +391,25 @@ module.exports = {
 		}
 	},
 	_addCommonContext: async function (user, promptContent) {
-		let withCommonContextPrompt;
+		let withCommonContextPrompt = "";
 		if (user.userInfo) {
 			const commonContextUserInfo = commonContext.userInfo
-			const commonContextPrompt
-				= commonContextUserInfo
-					.prompt
-					.replaceAll(commonContextUserInfo.params.age, user.userInfo.age)
-					.replaceAll(commonContextUserInfo.params.nation, user.userInfo.nation)
-					.replaceAll(commonContextUserInfo.params.job, user.userInfo.job)
+			let commonContextPrompt = commonContextUserInfo.prompt
+			if (user.userInfo.age) {
+				commonContextPrompt = commonContextPrompt.replaceAll(commonContextUserInfo.params.age, user.userInfo.age)
+			} else {
+				commonContextPrompt = commonContextPrompt.replaceAll(commonContextUserInfo.params.age, "any")
+			}
+			if (user.userInfo.nation) {
+				commonContextPrompt = commonContextPrompt.replaceAll(commonContextUserInfo.params.nation, user.userInfo.nation)
+			} else {
+				commonContextPrompt = commonContextPrompt.replaceAll(commonContextUserInfo.params.nation, "any")
+			}
+			if (user.userInfo.job) {
+				commonContextPrompt = commonContextPrompt.replaceAll(commonContextUserInfo.params.job, user.userInfo.job)
+			} else {
+				commonContextPrompt = commonContextPrompt.replaceAll(commonContextUserInfo.params.job, "any")
+			}
 			withCommonContextPrompt += commonContextPrompt
 		}
 

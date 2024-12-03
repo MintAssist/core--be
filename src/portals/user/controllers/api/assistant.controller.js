@@ -6,7 +6,7 @@ module.exports = {
 		try {
 			const payload = {
 				url: req.body.url,
-				originalText: req.body.originalText,
+				originalText: req.body.originalText.trim(),
 				language: req.body.language,
 				userId: req.session.currentUser._id
 			}
@@ -24,7 +24,7 @@ module.exports = {
 		try {
 			const payload = {
 				url: req.body.url,
-				originalText: req.body.originalText,
+				originalText: req.body.originalText.trim(),
 				language: req.body.language,
 				userId: req.session.currentUser._id
 			}
@@ -45,7 +45,7 @@ module.exports = {
 		try {
 			const payload = {
 				url: req.body.url,
-				originalText: req.body.originalText,
+				originalText: req.body.originalText.trim(),
 				userId: req.session.currentUser._id,
 				language: req.body.language,
 
@@ -67,7 +67,7 @@ module.exports = {
 		try {
 			const payload = {
 				url: req.body.url,
-				originalText: req.body.originalText,
+				originalText: req.body.originalText.trim(),
 				userId: req.session.currentUser._id,
 				language: req.body.language,
 			}
@@ -89,7 +89,7 @@ module.exports = {
 		try {
 			const payload = {
 				url: req.body.url,
-				originalText: req.body.originalText,
+				originalText: req.body.originalText.trim(),
 				userId: req.session.currentUser._id,
 			}
 

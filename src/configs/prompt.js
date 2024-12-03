@@ -6,7 +6,7 @@ module.exports = {
 				nation: "{{nation}}",
 				job: "{{job}}"
 			},
-			prompt: `As a {{job}} with the nationality ({{nation}}) and {{age}}age  I want`
+			prompt: `As a person who wants to learn knowledge, I want the knowledge I find to be close to (job:{{job}}, nationality ({{nation}}) and age {{age}}, and I want`
 		},
 		holdFormat: {
 			prompt: `If I mention the data format, it simply returns the same. Don't return any data other than the format I mentioned, please`
@@ -54,9 +54,7 @@ module.exports = {
 			},
 			separateString: "-+-+-",
 			separateStringArr: "-&-",
-			prompt: `
-			Input text: {{Content}} \n
-
+			prompt: `Input text: {{Content}} \n
 Target language: {{lang}} \n
 
 Output structure: \n
@@ -72,7 +70,7 @@ Requirements: \n
 - Detailed article information: For each article, provide: \n
 	+ Article title: The exact title of the article. \n
 	+ Brief summary: A concise description of the article's content. \n
-	+ Language: The language of the article (Prioritize: English > {{lang}}). \n
+	+ Language: The language of the article (Prioritize: English --> {{lang}} --> Other language). \n
 	+ Difficulty level: An assessment of the article's complexity (and is only in (${Object.values(require("./constant").business.note.hardLevel)}))` 
 		}
 	}
